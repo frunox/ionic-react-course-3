@@ -1,25 +1,65 @@
 import {
   IonApp,
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
+  IonIcon,
+  IonLabel,
+  IonRouterOutlet,
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
 } from '@ionic/react';
+import { IonReactRouter } from '@ionic/react-router';
 import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import { home as homeIcon, settings as settingsIcon } from 'ionicons/icons';
+import HomePage from './pages/HomePage';
+import SettingsPage from './pages/SettingsPage';
+import EntryPage from './pages/EntryPage';
 
 const App: React.FC = () => {
   return (
     <IonApp>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>My App</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent className="ion-padding">
-        Add some content here…
-      </IonContent>
+      <IonReactRouter>
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route exact path="/home">
+              <HomePage />
+            </Route>
+            <Route exact path="/settings">
+              <SettingsPage />
+            </Route>
+            <Route exact path="/entries/:id">
+              <EntryPage />
+            </Route>
+            <Redirect exact path="/" to="/home" />
+          </IonRouterOutlet>
+          <IonTabBar slot="bottom">
+            <IonTabButton tab="home" href="/home">
+              <IonIcon icon={homeIcon} />
+              <IonLabel>Home</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="settings" href="/settings">
+              <IonIcon icon={settingsIcon} />
+              <IonLabel>Settings</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
+      </IonReactRouter>
     </IonApp>
   );
 };
 
 export default App;
+
+// return (
+//   <IonApp>
+//     <Router>
+//       <Route exact path="/home">
+//         <HomePage />
+//       </Route>
+//       <Route exact path="/settings">
+//         <SettingsPage />
+//       </Route>
+//       <Redirect exact path="/" to="/home" />
+//     </Router>
+//   </IonApp>
+// );
