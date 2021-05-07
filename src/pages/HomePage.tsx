@@ -8,11 +8,17 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // import { Link } from 'react-router-dom';
-import { entries } from '../data';
+import { firestore } from '../firebase';
+import { Entry, toEntry } from '../models';
 
 const HomePage: React.FC = () => {
+  const [entries, setEntries] = useState<Entry[]>([]);
+  useEffect(() => {
+    const entriesRef = firestore.collection('entries');
+    entriesRef.get().then(({ docs }) => setEntries(docs.map(toEntry)));
+  }, []);
   return (
     <IonPage>
       <IonHeader>
@@ -21,7 +27,6 @@ const HomePage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        {/* Go to <IonRouterLink routerLink="/settings">Settings</IonRouterLink> */}
         <IonList>
           {entries.map((entry) => (
             <IonItem
