@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "ionic serve",
-    "build": "ionic build"
+    "build": "ionic build",
+    "serve": "ionic cap run android --livereload --external"
   },
   "dependencies": {
     "@capacitor/android": "2.4.7",

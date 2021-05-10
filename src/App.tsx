@@ -1,4 +1,5 @@
 import { IonApp, IonLoading } from '@ionic/react';
+import { Capacitor } from '@capacitor/core';
 import { IonReactRouter } from '@ionic/react-router';
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
@@ -13,6 +14,7 @@ const App: React.FC = () => {
   if (loading) {
     return <IonLoading isOpen />;
   }
+  console.log('platforms: ', Capacitor.getPlatform());
   console.log(`rendering App with auth:`, auth);
   return (
     <IonApp>
